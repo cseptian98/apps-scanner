@@ -1,11 +1,42 @@
-import React from 'react';
-import {Alert, Image, StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Alert, BackHandler, Image, StyleSheet, View} from 'react-native';
 import {AppButton, SecondaryButton} from 'components/MainButton';
 import {Section} from 'components/Section';
 
 const App = () => {
-  const onPress = () => {
-    Alert.alert('Information', 'Scan Messages');
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', exitApp);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', exitApp);
+    };
+  }, []);
+
+  const scanApps = () => {
+    Alert.alert('', 'Scan Apps');
+  };
+
+  const scanNetwork = () => {
+    Alert.alert('', 'Scan Network');
+  };
+
+  const scanDevice = () => {
+    Alert.alert('', 'Scan Device');
+  };
+
+  const exitApp = () => {
+    Alert.alert(
+      'Exit App',
+      'Do you want to exit?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        {text: 'Yes', onPress: () => BackHandler.exitApp()},
+      ],
+      {cancelable: false},
+    );
+    return true;
   };
 
   return (
@@ -15,15 +46,12 @@ const App = () => {
         style={styles.images}
       />
       <View style={styles.button}>
-        <SecondaryButton onPress={onPress} title="Scan Apps" />
-        <SecondaryButton onPress={onPress} title="Scan Network" />
-        <SecondaryButton onPress={onPress} title="Scan Devices" />
+        <SecondaryButton onPress={scanApps} title="Scan Apps" />
+        <SecondaryButton onPress={scanNetwork} title="Scan Network" />
+        <SecondaryButton onPress={scanDevice} title="Scan Devices" />
       </View>
-      <Section title="Scan App">
-        <AppButton onPress={onPress} title="Click to Scan!" />
-      </Section>
-      <Section title="Scan Devices">
-        <AppButton onPress={onPress} title="Click to Scan!" />
+      <Section>
+        <AppButton onPress={exitApp} title="Exit" />
       </Section>
     </View>
   );
@@ -33,6 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#FFF',
   },
   images: {
     width: 240,

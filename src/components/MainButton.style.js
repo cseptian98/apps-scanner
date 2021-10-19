@@ -23,7 +23,7 @@ export default StyleSheet.create({
     width: MAIN_WIDTH,
   },
   secondTitle: {
-    color: '#0277BD',
+    color: '#F5F5F5',
     flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
@@ -32,10 +32,8 @@ export default StyleSheet.create({
     textAlignVertical: 'center',
   },
   secondButton: {
-    borderColor: '#0277BD',
     borderRadius: 12,
-    borderWidth: 2,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#0277BD',
     height: SECOND_HEIGHT,
     marginTop: 16,
     width: SECOND_WIDTH,
